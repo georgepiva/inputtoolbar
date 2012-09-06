@@ -41,6 +41,8 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 #define kSetupTBIBTextViewSizeWidth 206.0
 #define kSetupTBIETextViewSizeWidth 236.0
 
+#define kUIInputToolbarLocalizableTableName @"UIInputToolbarLocalizable"
+
 @implementation UIInputToolbar
 @synthesize delegate;
 
@@ -149,12 +151,12 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     self.cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
                                                                       target:self
                                                                       action:@selector(cameraButtonPressed)];
-
-    self.locationButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                        target:self
-                                                                        action:@selector(cameraButtonPressed)];
     [self.cameraButton setStyle:UIBarButtonItemStyleBordered];
-    [self.locationButton setStyle:UIBarButtonItemStyleBordered];
+
+    self.locationButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"uiBarButtonItemLocation_iPhone.png"]
+                                                           style:UIBarButtonItemStyleBordered
+                                                          target:self
+                                                          action:@selector(locationButtonPressed)];
 
 }
 
@@ -179,7 +181,7 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 - (id)initWithFrame:(CGRect)frame andCustomInterface:(BOOL)customInterface {
     if ((self = [super initWithFrame:frame])) {
         [self setShouldUseCustomInterface:customInterface];
-        [self setupToolbar:@"Send"];
+        [self setupToolbar:NSLocalizedStringFromTable(@"Send", kUIInputToolbarLocalizableTableName, Nil)];
     }
     return self;
 }
@@ -187,7 +189,7 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 - (id)initWithCustomInterface:(BOOL)customInterface {
     if ((self = [super init])) {
         [self setShouldUseCustomInterface:customInterface];
-        [self setupToolbar:@"Send"];
+        [self setupToolbar:NSLocalizedStringFromTable(@"Send", kUIInputToolbarLocalizableTableName, Nil)];
     }
     return self;
 }

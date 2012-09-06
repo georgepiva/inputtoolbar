@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A757CE015F8FCC00003936E /* buttonbg@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CD215F8FCC00003936E /* buttonbg@2x~iphone.png */; };
+		5A757CE115F8FCC00003936E /* buttonbg~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CD315F8FCC00003936E /* buttonbg~iphone.png */; };
+		5A757CE215F8FCC00003936E /* textbg@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CD415F8FCC00003936E /* textbg@2x~iphone.png */; };
+		5A757CE315F8FCC00003936E /* textbg~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CD515F8FCC00003936E /* textbg~iphone.png */; };
+		5A757CE415F8FCC00003936E /* toolbarbg@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CD615F8FCC00003936E /* toolbarbg@2x~iphone.png */; };
+		5A757CE515F8FCC00003936E /* toolbarbg~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CD715F8FCC00003936E /* toolbarbg~iphone.png */; };
+		5A757CE615F8FCC00003936E /* uiBarButtonItemLocation_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CD815F8FCC00003936E /* uiBarButtonItemLocation_iPhone.png */; };
+		5A757CE715F8FCC00003936E /* uiBarButtonItemLocation_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CD915F8FCC00003936E /* uiBarButtonItemLocation_iPhone@2x.png */; };
+		5A757CE815F8FCC00003936E /* UIInputToolbarLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CDB15F8FCC00003936E /* UIInputToolbarLocalizable.strings */; };
+		5A757CE915F8FCC00003936E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CDF15F8FCC00003936E /* MainWindow.xib */; };
 		CA0C9C30137879DA0097DB28 /* UIExpandingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C27137879DA0097DB28 /* UIExpandingTextView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CA0C9C31137879DA0097DB28 /* UIExpandingTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C29137879DA0097DB28 /* UIExpandingTextViewInternal.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CA0C9C32137879DA0097DB28 /* UIInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C2B137879DA0097DB28 /* UIInputToolbar.m */; };
@@ -16,17 +26,21 @@
 		CA3A7B9613708CDE00CF5E6B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3A7B9513708CDE00CF5E6B /* CoreGraphics.framework */; };
 		CA3A7B9C13708CDE00CF5E6B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA3A7B9A13708CDE00CF5E6B /* InfoPlist.strings */; };
 		CA3A7B9F13708CDE00CF5E6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3A7B9E13708CDE00CF5E6B /* main.m */; };
-		CA3A7BA513708CDF00CF5E6B /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA3A7BA313708CDF00CF5E6B /* MainWindow.xib */; };
 		CADA5F07137891FD0046E8AA /* UIInputToolbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CADA5F06137891FD0046E8AA /* UIInputToolbarViewController.m */; };
-		CAEE6247137AF7F00064987F /* buttonbg@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CAEE6241137AF7F00064987F /* buttonbg@2x~iphone.png */; };
-		CAEE6248137AF7F00064987F /* buttonbg~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CAEE6242137AF7F00064987F /* buttonbg~iphone.png */; };
-		CAEE6249137AF7F00064987F /* textbg@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CAEE6243137AF7F00064987F /* textbg@2x~iphone.png */; };
-		CAEE624A137AF7F00064987F /* textbg~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CAEE6244137AF7F00064987F /* textbg~iphone.png */; };
-		CAEE624B137AF7F00064987F /* toolbarbg@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CAEE6245137AF7F00064987F /* toolbarbg@2x~iphone.png */; };
-		CAEE624C137AF7F00064987F /* toolbarbg~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CAEE6246137AF7F00064987F /* toolbarbg~iphone.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A757CD215F8FCC00003936E /* buttonbg@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonbg@2x~iphone.png"; sourceTree = "<group>"; };
+		5A757CD315F8FCC00003936E /* buttonbg~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonbg~iphone.png"; sourceTree = "<group>"; };
+		5A757CD415F8FCC00003936E /* textbg@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textbg@2x~iphone.png"; sourceTree = "<group>"; };
+		5A757CD515F8FCC00003936E /* textbg~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textbg~iphone.png"; sourceTree = "<group>"; };
+		5A757CD615F8FCC00003936E /* toolbarbg@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbarbg@2x~iphone.png"; sourceTree = "<group>"; };
+		5A757CD715F8FCC00003936E /* toolbarbg~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbarbg~iphone.png"; sourceTree = "<group>"; };
+		5A757CD815F8FCC00003936E /* uiBarButtonItemLocation_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uiBarButtonItemLocation_iPhone.png; sourceTree = "<group>"; };
+		5A757CD915F8FCC00003936E /* uiBarButtonItemLocation_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uiBarButtonItemLocation_iPhone@2x.png"; sourceTree = "<group>"; };
+		5A757CDC15F8FCC00003936E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UIInputToolbarLocalizable.strings; sourceTree = "<group>"; };
+		5A757CDD15F8FCC00003936E /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/UIInputToolbarLocalizable.strings; sourceTree = "<group>"; };
+		5A757CDF15F8FCC00003936E /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		CA0C9C26137879DA0097DB28 /* UIExpandingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIExpandingTextView.h; sourceTree = "<group>"; };
 		CA0C9C27137879DA0097DB28 /* UIExpandingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIExpandingTextView.m; sourceTree = "<group>"; };
 		CA0C9C28137879DA0097DB28 /* UIExpandingTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIExpandingTextViewInternal.h; sourceTree = "<group>"; };
@@ -43,15 +57,8 @@
 		CA3A7B9B13708CDE00CF5E6B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CA3A7B9D13708CDE00CF5E6B /* UIInputToolbarSample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIInputToolbarSample-Prefix.pch"; sourceTree = "<group>"; };
 		CA3A7B9E13708CDE00CF5E6B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CA3A7BA413708CDF00CF5E6B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		CADA5F05137891FD0046E8AA /* UIInputToolbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIInputToolbarViewController.h; sourceTree = "<group>"; };
 		CADA5F06137891FD0046E8AA /* UIInputToolbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIInputToolbarViewController.m; sourceTree = "<group>"; };
-		CAEE6241137AF7F00064987F /* buttonbg@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "buttonbg@2x~iphone.png"; path = "Resources/buttonbg@2x~iphone.png"; sourceTree = "<group>"; };
-		CAEE6242137AF7F00064987F /* buttonbg~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "buttonbg~iphone.png"; path = "Resources/buttonbg~iphone.png"; sourceTree = "<group>"; };
-		CAEE6243137AF7F00064987F /* textbg@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "textbg@2x~iphone.png"; path = "Resources/textbg@2x~iphone.png"; sourceTree = "<group>"; };
-		CAEE6244137AF7F00064987F /* textbg~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "textbg~iphone.png"; path = "Resources/textbg~iphone.png"; sourceTree = "<group>"; };
-		CAEE6245137AF7F00064987F /* toolbarbg@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolbarbg@2x~iphone.png"; path = "Resources/toolbarbg@2x~iphone.png"; sourceTree = "<group>"; };
-		CAEE6246137AF7F00064987F /* toolbarbg~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolbarbg~iphone.png"; path = "Resources/toolbarbg~iphone.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +75,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A757CD015F8FCC00003936E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5A757CD115F8FCC00003936E /* Images */,
+				5A757CDA15F8FCC00003936E /* Strings */,
+				5A757CDE15F8FCC00003936E /* XIBs */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		5A757CD115F8FCC00003936E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5A757CD215F8FCC00003936E /* buttonbg@2x~iphone.png */,
+				5A757CD315F8FCC00003936E /* buttonbg~iphone.png */,
+				5A757CD415F8FCC00003936E /* textbg@2x~iphone.png */,
+				5A757CD515F8FCC00003936E /* textbg~iphone.png */,
+				5A757CD615F8FCC00003936E /* toolbarbg@2x~iphone.png */,
+				5A757CD715F8FCC00003936E /* toolbarbg~iphone.png */,
+				5A757CD815F8FCC00003936E /* uiBarButtonItemLocation_iPhone.png */,
+				5A757CD915F8FCC00003936E /* uiBarButtonItemLocation_iPhone@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		5A757CDA15F8FCC00003936E /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				5A757CDB15F8FCC00003936E /* UIInputToolbarLocalizable.strings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		5A757CDE15F8FCC00003936E /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				5A757CDF15F8FCC00003936E /* MainWindow.xib */,
+			);
+			path = XIBs;
+			sourceTree = "<group>";
+		};
 		CA0C9C24137879DA0097DB28 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,7 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				CA0C9C24137879DA0097DB28 /* Classes */,
-				CA3A7BAC13708CF700CF5E6B /* Resources */,
+				5A757CD015F8FCC00003936E /* Resources */,
 				CA3A7B9813708CDE00CF5E6B /* Supporting Files */,
 			);
 			path = UIInputToolbarSample;
@@ -140,20 +188,6 @@
 				CA3A7B9E13708CDE00CF5E6B /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		CA3A7BAC13708CF700CF5E6B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				CAEE6241137AF7F00064987F /* buttonbg@2x~iphone.png */,
-				CAEE6242137AF7F00064987F /* buttonbg~iphone.png */,
-				CAEE6243137AF7F00064987F /* textbg@2x~iphone.png */,
-				CAEE6244137AF7F00064987F /* textbg~iphone.png */,
-				CAEE6245137AF7F00064987F /* toolbarbg@2x~iphone.png */,
-				CAEE6246137AF7F00064987F /* toolbarbg~iphone.png */,
-				CA3A7BA313708CDF00CF5E6B /* MainWindow.xib */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,6 +224,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				pt,
 			);
 			mainGroup = CA3A7B8213708CDE00CF5E6B;
 			productRefGroup = CA3A7B8E13708CDE00CF5E6B /* Products */;
@@ -207,13 +242,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA3A7B9C13708CDE00CF5E6B /* InfoPlist.strings in Resources */,
-				CA3A7BA513708CDF00CF5E6B /* MainWindow.xib in Resources */,
-				CAEE6247137AF7F00064987F /* buttonbg@2x~iphone.png in Resources */,
-				CAEE6248137AF7F00064987F /* buttonbg~iphone.png in Resources */,
-				CAEE6249137AF7F00064987F /* textbg@2x~iphone.png in Resources */,
-				CAEE624A137AF7F00064987F /* textbg~iphone.png in Resources */,
-				CAEE624B137AF7F00064987F /* toolbarbg@2x~iphone.png in Resources */,
-				CAEE624C137AF7F00064987F /* toolbarbg~iphone.png in Resources */,
+				5A757CE015F8FCC00003936E /* buttonbg@2x~iphone.png in Resources */,
+				5A757CE115F8FCC00003936E /* buttonbg~iphone.png in Resources */,
+				5A757CE215F8FCC00003936E /* textbg@2x~iphone.png in Resources */,
+				5A757CE315F8FCC00003936E /* textbg~iphone.png in Resources */,
+				5A757CE415F8FCC00003936E /* toolbarbg@2x~iphone.png in Resources */,
+				5A757CE515F8FCC00003936E /* toolbarbg~iphone.png in Resources */,
+				5A757CE615F8FCC00003936E /* uiBarButtonItemLocation_iPhone.png in Resources */,
+				5A757CE715F8FCC00003936E /* uiBarButtonItemLocation_iPhone@2x.png in Resources */,
+				5A757CE815F8FCC00003936E /* UIInputToolbarLocalizable.strings in Resources */,
+				5A757CE915F8FCC00003936E /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,20 +274,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		5A757CDB15F8FCC00003936E /* UIInputToolbarLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A757CDC15F8FCC00003936E /* en */,
+				5A757CDD15F8FCC00003936E /* pt */,
+			);
+			name = UIInputToolbarLocalizable.strings;
+			sourceTree = "<group>";
+		};
 		CA3A7B9A13708CDE00CF5E6B /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CA3A7B9B13708CDE00CF5E6B /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		CA3A7BA313708CDF00CF5E6B /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CA3A7BA413708CDF00CF5E6B /* en */,
-			);
-			name = MainWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

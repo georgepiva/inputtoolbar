@@ -152,9 +152,19 @@
     keyboardIsVisible = NO;
 }
 
--(void)inputButtonPressed:(NSString *)inputText
-{
-    /* Called when toolbar button is pressed */
-    NSLog(@"Pressed button with text: '%@'", inputText);
+- (void)uiImputToolbar:(UIInputToolbar *)toolbar inputButtonPressed:(NSString *)inputText {
+    /* Called when the toolbar input button was pressed */
+    NSLog(@"Pressed input button with text: '%@'.", inputText);
 }
+
+- (void)uiImputToolbarCameraButtonPressed:(UIInputToolbar *)toolbar {
+    /* Called when the toolbar camera button was pressed */
+    NSLog(@"Pressed camera button.");
+}
+
+- (void)uiImputToolbarLocationButtonPressed:(UIInputToolbar *)toolbar {
+    /* Called when the toolbar location button was pressed */
+    NSLog(@"Pressed location button.");
+}
+
 @end
