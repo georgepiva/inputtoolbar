@@ -17,8 +17,8 @@
 		5A757CE715F8FCC00003936E /* uiBarButtonItemLocation_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CD915F8FCC00003936E /* uiBarButtonItemLocation_iPhone@2x.png */; };
 		5A757CE815F8FCC00003936E /* UIInputToolbarLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CDB15F8FCC00003936E /* UIInputToolbarLocalizable.strings */; };
 		5A757CE915F8FCC00003936E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A757CDF15F8FCC00003936E /* MainWindow.xib */; };
-		CA0C9C30137879DA0097DB28 /* UIExpandingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C27137879DA0097DB28 /* UIExpandingTextView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		CA0C9C31137879DA0097DB28 /* UIExpandingTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C29137879DA0097DB28 /* UIExpandingTextViewInternal.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CA0C9C30137879DA0097DB28 /* UIExpandingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C27137879DA0097DB28 /* UIExpandingTextView.m */; };
+		CA0C9C31137879DA0097DB28 /* UIExpandingTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C29137879DA0097DB28 /* UIExpandingTextViewInternal.m */; };
 		CA0C9C32137879DA0097DB28 /* UIInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C2B137879DA0097DB28 /* UIInputToolbar.m */; };
 		CA0C9C33137879DA0097DB28 /* UIInputToolbarSampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C2D137879DA0097DB28 /* UIInputToolbarSampleAppDelegate.m */; };
 		CA3A7B9213708CDE00CF5E6B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3A7B9113708CDE00CF5E6B /* UIKit.framework */; };

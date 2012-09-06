@@ -56,7 +56,6 @@
     int maximumNumberOfLines;
 	int minimumNumberOfLines;
 	BOOL animateHeightChange;
-	NSObject <UIExpandingTextViewDelegate> *delegate;
 	NSString *text;
 	UIFont *font;
 	UIColor *textColor;
@@ -76,10 +75,10 @@
 @property int minimumNumberOfLines;
 @property BOOL animateHeightChange;
 
-@property (assign) NSObject<UIExpandingTextViewDelegate> *delegate;
-@property (nonatomic,assign) NSString *text;
-@property (nonatomic,assign) UIFont *font;
-@property (nonatomic,assign) UIColor *textColor;
+@property (nonatomic,assign) NSObject<UIExpandingTextViewDelegate> *delegate;
+@property (nonatomic,copy) NSString *text;
+@property (nonatomic,retain) UIFont *font;
+@property (nonatomic,retain) UIColor *textColor;
 @property (nonatomic) UITextAlignment textAlignment;
 @property (nonatomic) NSRange selectedRange;
 @property (nonatomic,getter=isEditable) BOOL editable;
