@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CA0C9C30137879DA0097DB28 /* UIExpandingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C27137879DA0097DB28 /* UIExpandingTextView.m */; };
-		CA0C9C31137879DA0097DB28 /* UIExpandingTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C29137879DA0097DB28 /* UIExpandingTextViewInternal.m */; };
+		CA0C9C30137879DA0097DB28 /* UIExpandingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C27137879DA0097DB28 /* UIExpandingTextView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CA0C9C31137879DA0097DB28 /* UIExpandingTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C29137879DA0097DB28 /* UIExpandingTextViewInternal.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CA0C9C32137879DA0097DB28 /* UIInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C2B137879DA0097DB28 /* UIInputToolbar.m */; };
 		CA0C9C33137879DA0097DB28 /* UIInputToolbarSampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0C9C2D137879DA0097DB28 /* UIInputToolbarSampleAppDelegate.m */; };
 		CA3A7B9213708CDE00CF5E6B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3A7B9113708CDE00CF5E6B /* UIKit.framework */; };
@@ -181,6 +181,9 @@
 /* Begin PBXProject section */
 		CA3A7B8413708CDE00CF5E6B /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
 			buildConfigurationList = CA3A7B8713708CDE00CF5E6B /* Build configuration list for PBXProject "UIInputToolbarSample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -288,10 +291,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UIInputToolbarSample/UIInputToolbarSample-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "UIInputToolbarSample/UIInputToolbarSample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -302,9 +307,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UIInputToolbarSample/UIInputToolbarSample-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "UIInputToolbarSample/UIInputToolbarSample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;

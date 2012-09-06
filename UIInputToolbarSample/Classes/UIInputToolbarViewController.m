@@ -26,19 +26,13 @@
 #import "UIInputToolbarViewController.h"
 
 #define kStatusBarHeight 20
-#define kDefaultToolbarHeight 40
+#define kDefaultToolbarHeight 44
 #define kKeyboardHeightPortrait 216
 #define kKeyboardHeightLandscape 140
 
 @implementation UIInputToolbarViewController
 
 @synthesize inputToolbar;
-
-- (void)dealloc
-{
-    [inputToolbar release];
-    [super dealloc];
-}
 
 #pragma mark - View lifecycle
 
@@ -53,10 +47,18 @@
     self.view = [[UIView alloc] initWithFrame:screenFrame];
     self.view.backgroundColor = [UIColor whiteColor];
     /* Create toolbar */
-    self.inputToolbar = [[UIInputToolbar alloc] initWithFrame:CGRectMake(0, screenFrame.size.height-kDefaultToolbarHeight, screenFrame.size.width, kDefaultToolbarHeight)];
+    self.inputToolbar = [[UIInputToolbar alloc] initWithFrame:CGRectMake(
+                                                                         0,
+                                                                         screenFrame.size.height - kDefaultToolbarHeight,
+                                                                         screenFrame.size.width,
+                                                                         kDefaultToolbarHeight
+                                                                         )
+                         andCustomInterface:NO];
+    
     [self.view addSubview:self.inputToolbar];
     inputToolbar.delegate = self;
     inputToolbar.textView.placeholder = @"Placeholder";
+    [self.inputToolbar setupWithToolbarItensButtons];
 }
 
 - (void)viewDidUnload
@@ -114,6 +116,8 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification 
 {
+    [self.inputToolbar setupWithToolbarItensEditing];
+    
     /* Move the toolbar to above the keyboard */
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.3];
@@ -131,6 +135,8 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification 
 {
+    [self.inputToolbar setupWithToolbarItensButtons];
+    
     /* Move the toolbar back to bottom of the screen */
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.3];

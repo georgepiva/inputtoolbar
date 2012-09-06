@@ -27,101 +27,158 @@
 
 NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpandingTextViewWillChangeHeight";
 
-@interface UIInputToolbar () {
-    UIColor *characterCountIsValidTextColor;
-    UIColor *characterCountIsValidShadowColor;
-    UIColor *characterCountIsNotValidTextColor;
-    UIColor *characterCountIsNotValidShadowColor;
-}
+@interface UIInputToolbar ()
+@property (nonatomic, assign) UIColor *characterCountIsValidTextColor;
+@property (nonatomic, assign) UIColor *characterCountIsValidShadowColor;
+@property (nonatomic, assign) UIColor *characterCountIsNotValidTextColor;
+@property (nonatomic, assign) UIColor *characterCountIsNotValidShadowColor;
+
+@property (nonatomic, retain) UIView      *containerView;
+@property (nonatomic, retain) UIImageView *foregroundImage;
 
 @property (nonatomic, retain) UIButton *innerBarButton;
 
 @end
 
+#define kSetupTBIBTextViewSizeWidth 206.0
+#define kSetupTBIETextViewSizeWidth 236.0
 
 @implementation UIInputToolbar
-
-@synthesize textView;
-@synthesize characterLimit;
-@synthesize inputButton;
-@synthesize inputButtonShouldDisableForNoText;
 @synthesize delegate;
-@synthesize backgroundImage;
-@synthesize inputButtonImage=_inputButtonImage;
-@synthesize innerBarButton;
 
--(void)inputButtonPressed
-{
-    if ([delegate respondsToSelector:@selector(inputButtonPressed:)]) 
-    {
-        [delegate inputButtonPressed:self.textView.text];
+- (void)inputButtonPressed {
+    
+    if ([self.delegate respondsToSelector:@selector(uiImputToolbar:inputButtonPressed:)]) {
+        [self.delegate uiImputToolbar:self inputButtonPressed:self.textView.text];
     }
     
     /* Remove the keyboard and clear the text */
     [self.textView resignFirstResponder];
     [self.textView clearText];
+    
 }
 
--(void)setupToolbar:(NSString *)buttonLabel
-{
+- (void)cameraButtonPressed {
+    
+    if ([self.delegate respondsToSelector:@selector(uiImputToolbarCameraButtonPressed:)]) {
+        [self.delegate uiImputToolbarCameraButtonPressed:self];
+    }
+    
+}
+
+- (void)locationButtonPressed {
+    
+    if ([self.delegate respondsToSelector:@selector(uiImputToolbarLocationButtonPressed:)]) {
+        [self.delegate uiImputToolbarLocationButtonPressed:self];
+    }
+    
+}
+
+- (void)setupToolbar:(NSString *)buttonLabel {
+  
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     self.tintColor = [UIColor lightGrayColor];
     
-    /* Create custom send button*/
-    UIImage *stretchableButtonImage = [self.inputButtonImage stretchableImageWithLeftCapWidth:floorf(self.inputButtonImage.size.width/2) topCapHeight:floorf(self.inputButtonImage.size.height/2)];
+    if (self.shouldUseCustomInterface) {
+        /* Create custom send button*/
+        UIImage *stretchableButtonImage = [self.inputButtonImage stretchableImageWithLeftCapWidth:floorf(self.inputButtonImage.size.width/2)
+                                                                                     topCapHeight:floorf(self.inputButtonImage.size.height/2)];
+        
+        UIButton *button               = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.titleLabel.font         = [UIFont boldSystemFontOfSize:15.0f];
+        button.titleLabel.shadowOffset = CGSizeMake(0, -1);
+        button.titleEdgeInsets         = UIEdgeInsetsMake(0, 2, 0, 2);
+        button.contentStretch          = CGRectMake(0.5, 0.5, 0, 0);
+        button.contentMode             = UIViewContentModeScaleToFill;
+        
+        [button setBackgroundImage:stretchableButtonImage forState:UIControlStateNormal];
+        [button setTitle:buttonLabel forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(inputButtonPressed) forControlEvents:UIControlEventTouchDown];
+        [button sizeToFit];
+        
+        self.innerBarButton = button;
+        self.inputButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+        
+    } else {
+        self.inputButton = [[UIBarButtonItem alloc] initWithTitle:buttonLabel
+                                                            style:UIBarButtonItemStyleBordered
+                                                           target:self
+                                                           action:@selector(inputButtonPressed)];
+    }
     
-    UIButton *button               = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.titleLabel.font         = [UIFont boldSystemFontOfSize:15.0f];
-    button.titleLabel.shadowOffset = CGSizeMake(0, -1);
-    button.titleEdgeInsets         = UIEdgeInsetsMake(0, 2, 0, 2);
-    button.contentStretch          = CGRectMake(0.5, 0.5, 0, 0);
-    button.contentMode             = UIViewContentModeScaleToFill;
-    
-    [button setBackgroundImage:stretchableButtonImage forState:UIControlStateNormal];
-    [button setTitle:buttonLabel forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(inputButtonPressed) forControlEvents:UIControlEventTouchDown];
-    [button sizeToFit];
-    
-    self.innerBarButton = button;
-    
-    self.inputButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.inputButton.customView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [self.inputButton setStyle:UIBarButtonItemStyleBordered];
     /* Disable button initially */
     self.inputButton.enabled = NO;
     self.inputButtonShouldDisableForNoText = YES;
     
     /* Create UIExpandingTextView input */
-    self.textView = [[UIExpandingTextView alloc] initWithFrame:CGRectMake(7, 7, 236, 26)];
+    self.textView = [[UIExpandingTextView alloc] initWithFrame:CGRectMake(0.0, 7.0, kSetupTBIBTextViewSizeWidth, 26)];
     self.textView.internalTextView.scrollIndicatorInsets = UIEdgeInsetsMake(4.0f, 0.0f, 10.0f, 0.0f);
     self.textView.delegate = self;
+    self.textView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.textView];
-    
-    /* Right align the toolbar button */
-    UIBarButtonItem *flexItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
-    
+            
     /* Add the character count label */
-    characterCountIsValidTextColor = [UIColor whiteColor];
-    characterCountIsValidShadowColor = [UIColor darkGrayColor];
-    characterCountIsNotValidTextColor = [UIColor redColor];
-    characterCountIsNotValidShadowColor = [UIColor clearColor];
+    self.characterCountIsValidTextColor = [UIColor whiteColor];
+    self.characterCountIsValidShadowColor = [UIColor darkGrayColor];
+    self.characterCountIsNotValidTextColor = [UIColor redColor];
+    self.characterCountIsNotValidShadowColor = [UIColor clearColor];
     
-    characterCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(253, -5, 50, 40)];
-    characterCountLabel.textAlignment = UITextAlignmentCenter;
-    characterCountLabel.font = [UIFont boldSystemFontOfSize:12];
-    characterCountLabel.textColor = characterCountIsValidTextColor;
-    characterCountLabel.shadowColor = characterCountIsValidShadowColor;
-    characterCountLabel.shadowOffset = CGSizeMake(0, -1);
-    characterCountLabel.backgroundColor = [UIColor clearColor];
+    self.characterCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(253, -5, 50, 40)];
+    self.characterCountLabel.textAlignment = UITextAlignmentCenter;
+    self.characterCountLabel.font = [UIFont boldSystemFontOfSize:12];
+    self.characterCountLabel.textColor = self.characterCountIsValidTextColor;
+    self.characterCountLabel.shadowColor = self.characterCountIsValidShadowColor;
+    self.characterCountLabel.shadowOffset = CGSizeMake(0, -1);
+    self.characterCountLabel.backgroundColor = [UIColor clearColor];
     
-    [self addSubview:characterCountLabel];
+    [self addSubview:self.characterCountLabel];
     
-    NSArray *items = [NSArray arrayWithObjects: flexItem, self.inputButton, nil];
+    self.containerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, kSetupTBIBTextViewSizeWidth, 40)];
+    self.containerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.containerView.backgroundColor = [UIColor clearColor];
+    self.containerView.clipsToBounds = YES;
+    [self.containerView addSubview:self.textView];
+    
+    self.textViewButton = [[UIBarButtonItem alloc] initWithCustomView:self.containerView];
+    
+    NSArray *items = [NSArray arrayWithObjects: self.textViewButton, self.inputButton, nil];
     [self setItems:items animated:NO];
+    
+    self.cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
+                                                                      target:self
+                                                                      action:@selector(cameraButtonPressed)];
+
+    self.locationButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                        target:self
+                                                                        action:@selector(cameraButtonPressed)];
+    [self.cameraButton setStyle:UIBarButtonItemStyleBordered];
+    [self.locationButton setStyle:UIBarButtonItemStyleBordered];
+
 }
 
--(id)initWithFrame:(CGRect)frame
-{
+- (void)setupWithToolbarItensEditing {
+    
+    self.textViewButton.width = kSetupTBIETextViewSizeWidth;
+
+    NSArray *items = [NSArray arrayWithObjects: self.textViewButton, self.inputButton, nil];
+    [self setItems:items animated:YES];
+    
+}
+
+- (void)setupWithToolbarItensButtons {
+    
+    self.textViewButton.width = kSetupTBIBTextViewSizeWidth;
+    
+    NSArray *items = [NSArray arrayWithObjects: self.locationButton, self.cameraButton, self.textViewButton, nil];
+    [self setItems:items animated:YES];
+    
+}
+
+- (id)initWithFrame:(CGRect)frame andCustomInterface:(BOOL)customInterface {
     if ((self = [super initWithFrame:frame])) {
+        [self setShouldUseCustomInterface:customInterface];
         [self setInputButtonImage:[UIImage imageNamed:@"buttonbg.png"]];
         [self setBackgroundImage:[UIImage imageNamed:@"toolbarbg.png"]];
         [self setupToolbar:@"Send"];
@@ -129,40 +186,36 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     return self;
 }
 
--(id)init
-{
+- (id)initWithCustomInterface:(BOOL)customInterface {
     if ((self = [super init])) {
+        [self setShouldUseCustomInterface:customInterface];
         [self setupToolbar:@"Send"];
     }
     return self;
 }
 
-- (void)drawRect:(CGRect)rect 
-{
-    /* Draw custon toolbar background */
-    UIImage *stretchableBackgroundImage = [self.backgroundImage stretchableImageWithLeftCapWidth:floorf(self.backgroundImage.size.width/2) topCapHeight:floorf(self.backgroundImage.size.height/2)];
-    [stretchableBackgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+- (void)drawRect:(CGRect)rect {
     
     CGRect i = self.inputButton.customView.frame;
     i.origin.y = self.frame.size.height - i.size.height - 7;
     self.inputButton.customView.frame = i;
+
+    if (NO == self.shouldUseCustomInterface) {
+        [super drawRect:rect];
+        return;
+    }
+
+    /* Draw custon toolbar background */
+    UIImage *stretchableBackgroundImage = [self.backgroundImage stretchableImageWithLeftCapWidth:floorf(self.backgroundImage.size.width/2) topCapHeight:floorf(self.backgroundImage.size.height/2)];
+    [stretchableBackgroundImage drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    
 }
 
-- (void)dealloc
-{
-    [textView release];
-    [inputButton release];
-    [super dealloc];
-}
+#pragma mark - UIExpandingTextView delegate
 
-
-#pragma mark -
-#pragma mark UIExpandingTextView delegate
-
--(void)expandingTextView:(UIExpandingTextView *)expandingTextView willChangeHeight:(float)height
-{
+- (void)expandingTextView:(UIExpandingTextView *)expandingTextView willChangeHeight:(float)height {
     /* Adjust the height of the toolbar when the input component expands */
-    float diff = (textView.frame.size.height - height);
+    float diff = (self.textView.frame.size.height - height);
     CGRect r = self.frame;
     r.origin.y += diff;
     r.size.height -= diff;
@@ -172,11 +225,10 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 	[[NSNotificationCenter defaultCenter] postNotificationName:CHExpandingTextViewWillChangeHeightNotification object:nil userInfo:(NSDictionary *)aUserInfo];
 }
 
--(void)expandingTextViewDidChange:(UIExpandingTextView *)expandingTextView
-{
+- (void)expandingTextViewDidChange:(UIExpandingTextView *)expandingTextView {
     /* Enable/Disable the button */
     if (self.inputButtonShouldDisableForNoText) {
-        if ([expandingTextView.text length] > 0) {
+        if ([expandingTextView hasText]) {
             self.inputButton.enabled = YES;
         } else {
             self.inputButton.enabled = NO;
@@ -184,34 +236,35 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     }
     
     /* Show/Hide the character count and update its text */
-    if (characterLimit > 0) {
+    if (self.characterLimit > 0) {
         if (self.frame.size.height > 40) {
-            characterCountLabel.hidden = NO;
+            self.characterCountLabel.hidden = NO;
         } else {
-            characterCountLabel.hidden = YES;
+            self.characterCountLabel.hidden = YES;
         }
         
-        characterCountLabel.text = [NSString stringWithFormat:@"%i/%i",expandingTextView.text.length,characterLimit];
+        self.characterCountLabel.text = [NSString stringWithFormat:@"%i/%i",expandingTextView.text.length, self.characterLimit];
         
-        if (expandingTextView.text.length > characterLimit) {
-            characterCountLabel.textColor = characterCountIsNotValidTextColor;
-            characterCountLabel.shadowColor = characterCountIsNotValidShadowColor;
-            inputButton.enabled = NO;
+        if (expandingTextView.text.length > self.characterLimit) {
+            self.characterCountLabel.textColor = self.characterCountIsNotValidTextColor;
+            self.characterCountLabel.shadowColor = self.characterCountIsNotValidShadowColor;
+            self.inputButton.enabled = NO;
         } else if (expandingTextView.text.length > 0) {
-            characterCountLabel.textColor = characterCountIsValidTextColor;
-            characterCountLabel.shadowColor = characterCountIsValidShadowColor;
-            inputButton.enabled = YES;
+            self.characterCountLabel.textColor = self.characterCountIsValidTextColor;
+            self.characterCountLabel.shadowColor = self.characterCountIsValidShadowColor;
+            self.inputButton.enabled = YES;
         }
     }
 }
 
--(void)setInputButtonImage:(UIImage *)inputButtonImage {
+- (void)setInputButtonImage:(UIImage *)inputButtonImage {
     if (![_inputButtonImage isEqual:inputButtonImage]) {
-        [_inputButtonImage release];
-        _inputButtonImage = [inputButtonImage retain];
+        _inputButtonImage = Nil;
         
         if (self.innerBarButton) {
-            UIImage *stretchableButtonImage = [_inputButtonImage stretchableImageWithLeftCapWidth:floorf(_inputButtonImage.size.width/2) topCapHeight:floorf(_inputButtonImage.size.height/2)];
+            UIImage *stretchableButtonImage = [_inputButtonImage stretchableImageWithLeftCapWidth:floorf(_inputButtonImage.size.width/2)
+                                                                                     topCapHeight:floorf(_inputButtonImage.size.height/2)];
+            
             [self.innerBarButton setBackgroundImage:stretchableButtonImage forState:UIControlStateNormal];
         }
     }

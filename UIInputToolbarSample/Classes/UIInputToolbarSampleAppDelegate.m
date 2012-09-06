@@ -31,19 +31,11 @@
 @synthesize window=_window;
 @synthesize viewController;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.viewController = [[UIInputToolbarViewController alloc] init];
     [self.window setRootViewController:self.viewController];
     [self.window makeKeyAndVisible];
     return YES;
-}
-
-- (void)dealloc
-{
-    [viewController release];
-    [_window release];
-    [super dealloc];
 }
 
 @end

@@ -30,29 +30,49 @@
 
 extern NSString * const CHExpandingTextViewWillChangeHeightNotification;
 
+@class UIInputToolbar;
 
 @protocol UIInputToolbarDelegate <NSObject>
 @optional
--(void)inputButtonPressed:(NSString *)inputText;
+- (void)uiImputToolbar:(UIInputToolbar *)toolbar inputButtonPressed:(NSString *)inputText;
+- (void)uiImputToolbarCameraButtonPressed:(UIInputToolbar *)toolbar;
+- (void)uiImputToolbarLocationButtonPressed:(UIInputToolbar *)toolbar;
 @end
 
-@interface UIInputToolbar : UIToolbar <UIExpandingTextViewDelegate> 
-{
-    UIExpandingTextView *textView;
-    UIBarButtonItem *inputButton;
-    UILabel *characterCountLabel;
-    NSObject <UIInputToolbarDelegate> *delegate;
-}
-
-- (void)drawRect:(CGRect)rect;
-
+@interface UIInputToolbar : UIToolbar <UIExpandingTextViewDelegate>
+//
+// Delegate
+@property (nonatomic, assign) NSObject<UIInputToolbarDelegate> *delegate;
+//
+// Custom text view.
 @property (nonatomic, retain) UIExpandingTextView *textView;
-@property (nonatomic) NSInteger characterLimit;
+//
+// Bar buttom items.
+@property (nonatomic, retain) UIBarButtonItem *textViewButton;
 @property (nonatomic, retain) UIBarButtonItem *inputButton;
-@property (nonatomic) BOOL inputButtonShouldDisableForNoText;
-@property (assign) NSObject<UIInputToolbarDelegate> *delegate;
+@property (nonatomic, retain) UIBarButtonItem *cameraButton;
+@property (nonatomic, retain) UIBarButtonItem *locationButton;
+
+//
+// UI components.
+@property (nonatomic, assign) BOOL shouldUseCustomInterface;
+@property (nonatomic, assign) BOOL inputButtonShouldDisableForNoText;
+@property (nonatomic, assign) NSInteger characterLimit;
+@property (nonatomic, retain) UILabel *characterCountLabel;
 
 @property (nonatomic, retain) UIImage *backgroundImage;
 @property (nonatomic, retain) UIImage *inputButtonImage;
+
+//
+// Constructors
+- (id)initWithFrame:(CGRect)frame andCustomInterface:(BOOL)customInterface;
+- (id)initWithCustomInterface:(BOOL)customInterface;
+
+//
+// Instance methods.
+- (void)drawRect:(CGRect)rect;
+
+- (void)setupWithToolbarItensEditing;
+- (void)setupWithToolbarItensButtons;
 
 @end
