@@ -75,4 +75,6 @@ extern NSString * const CHExpandingTextViewWillChangeHeightNotification;
 - (void)setupWithToolbarItensEditing;
 - (void)setupWithToolbarItensButtons;
 
+- (void)setPlaceholder:(NSString *)placeholder;
+
 @end

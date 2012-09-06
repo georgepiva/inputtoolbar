@@ -33,10 +33,8 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 @property (nonatomic, assign) UIColor *characterCountIsNotValidTextColor;
 @property (nonatomic, assign) UIColor *characterCountIsNotValidShadowColor;
 
-@property (nonatomic, retain) UIView      *containerView;
-@property (nonatomic, retain) UIImageView *foregroundImage;
-
-@property (nonatomic, retain) UIButton *innerBarButton;
+@property (nonatomic, retain) UIView    *containerView;
+@property (nonatomic, retain) UIButton  *innerBarButton;
 
 @end
 
@@ -53,8 +51,8 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     }
     
     /* Remove the keyboard and clear the text */
-    [self.textView resignFirstResponder];
     [self.textView clearText];
+    [self.textView resignFirstResponder];
     
 }
 
@@ -81,6 +79,9 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     
     if (self.shouldUseCustomInterface) {
         /* Create custom send button*/
+        [self setInputButtonImage:[UIImage imageNamed:@"buttonbg.png"]];
+        [self setBackgroundImage:[UIImage imageNamed:@"toolbarbg.png"]];
+
         UIImage *stretchableButtonImage = [self.inputButtonImage stretchableImageWithLeftCapWidth:floorf(self.inputButtonImage.size.width/2)
                                                                                      topCapHeight:floorf(self.inputButtonImage.size.height/2)];
         
@@ -97,8 +98,7 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
         [button sizeToFit];
         
         self.innerBarButton = button;
-        self.inputButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-        
+        self.inputButton = [[UIBarButtonItem alloc] initWithCustomView:button];        
     } else {
         self.inputButton = [[UIBarButtonItem alloc] initWithTitle:buttonLabel
                                                             style:UIBarButtonItemStyleBordered
@@ -179,8 +179,6 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 - (id)initWithFrame:(CGRect)frame andCustomInterface:(BOOL)customInterface {
     if ((self = [super initWithFrame:frame])) {
         [self setShouldUseCustomInterface:customInterface];
-        [self setInputButtonImage:[UIImage imageNamed:@"buttonbg.png"]];
-        [self setBackgroundImage:[UIImage imageNamed:@"toolbarbg.png"]];
         [self setupToolbar:@"Send"];
     }
     return self;
@@ -257,18 +255,8 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     }
 }
 
-- (void)setInputButtonImage:(UIImage *)inputButtonImage {
-    if (![_inputButtonImage isEqual:inputButtonImage]) {
-        _inputButtonImage = Nil;
-        
-        if (self.innerBarButton) {
-            UIImage *stretchableButtonImage = [_inputButtonImage stretchableImageWithLeftCapWidth:floorf(_inputButtonImage.size.width/2)
-                                                                                     topCapHeight:floorf(_inputButtonImage.size.height/2)];
-            
-            [self.innerBarButton setBackgroundImage:stretchableButtonImage forState:UIControlStateNormal];
-        }
-    }
+- (void)setPlaceholder:(NSString *)placeholder {
+    self.textView.placeholder = placeholder;
 }
-
 
 @end

@@ -80,16 +80,7 @@
 
         /* Internal Text View component */
 		internalTextView = [[UIExpandingTextViewInternal alloc] initWithFrame:textViewFrame];
-		internalTextView.delegate        = self;
-		internalTextView.font            = [UIFont systemFontOfSize:15.0]; 
-		internalTextView.contentInset    = UIEdgeInsetsMake(-4,0,-4,0);	
-        internalTextView.text            = @"-";
-		internalTextView.scrollEnabled   = NO;
-        internalTextView.opaque          = NO;
-        internalTextView.backgroundColor = [UIColor clearColor];
-        internalTextView.showsHorizontalScrollIndicator = NO;
-        [internalTextView sizeToFit];
-        internalTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self setupTextView];
         
         /* set placeholder */
         placeholderLabel = [[UILabel alloc]initWithFrame:CGRectMake(8,3,self.bounds.size.width - 16,self.bounds.size.height)];
@@ -108,15 +99,7 @@
         [self addSubview:textViewBackgroundImage];
         [self addSubview:internalTextView];
 
-        /* Calculate the text view height */
-		UIView *internal = (UIView*)[[internalTextView subviews] objectAtIndex:0];
-		minimumHeight = internal.frame.size.height;
-		[self setMinimumNumberOfLines:1];
-		animateHeightChange = YES;
-		internalTextView.text = @"";
-		[self setMaximumNumberOfLines:13];
-        
-        [self sizeToFit];
+        [self calculateTextViewHeight];
     }
     return self;
 }
@@ -138,18 +121,44 @@
     CGRect backgroundFrame   = aframe;
     backgroundFrame.origin.y = 0;
     backgroundFrame.origin.x = 0;
+    backgroundFrame.size.height  -= 8;
     CGRect textViewFrame = CGRectInset(backgroundFrame, kTextInsetX, 0);
 	internalTextView.frame   = textViewFrame;
-    backgroundFrame.size.height  -= 8;
     textViewBackgroundImage.frame = backgroundFrame;
     forceSizeUpdate = YES;
 	[super setFrame:aframe];
 }
 
+- (void)setupTextView {
+    internalTextView.delegate        = self;
+    internalTextView.font            = [UIFont systemFontOfSize:15.0];
+    internalTextView.contentInset    = UIEdgeInsetsMake(-4,0,-4,0);
+    internalTextView.text            = @"-";
+    internalTextView.scrollEnabled   = NO;
+    internalTextView.opaque          = NO;
+    internalTextView.backgroundColor = [UIColor clearColor];
+    internalTextView.showsHorizontalScrollIndicator = NO;
+    [internalTextView sizeToFit];
+    internalTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+}
+
+- (void)calculateTextViewHeight {
+    /* Calculate the text view height */
+    UIView *internal = (UIView*)[[internalTextView subviews] objectAtIndex:0];
+    minimumHeight = internal.frame.size.height;
+    [self setMinimumNumberOfLines:1];
+    animateHeightChange = YES;
+    internalTextView.text = @"";
+    [self setMaximumNumberOfLines:5];
+    
+    [self sizeToFit];
+}
+
 -(void)clearText
 {
     self.text = @"";
-    [self textViewDidChange:self.internalTextView];
+    [self setupTextView];
+    [self calculateTextViewHeight];
 }
      
 -(void)setMaximumNumberOfLines:(int)n
@@ -238,8 +247,8 @@
 			self.frame = r;
 			r.origin.y = 0;
 			r.origin.x = 0;
-            internalTextView.frame = CGRectInset(r, kTextInsetX, 0);
             r.size.height -= 8;
+            internalTextView.frame = CGRectInset(r, kTextInsetX, 0);
             textViewBackgroundImage.frame = r;
             
 			if(animateHeightChange)
