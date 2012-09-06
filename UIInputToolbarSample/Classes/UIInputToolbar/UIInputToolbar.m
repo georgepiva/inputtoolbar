@@ -27,12 +27,11 @@
 
 NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpandingTextViewWillChangeHeight";
 
-@interface UIInputToolbar () {
-    UIColor *characterCountIsValidTextColor;
-    UIColor *characterCountIsValidShadowColor;
-    UIColor *characterCountIsNotValidTextColor;
-    UIColor *characterCountIsNotValidShadowColor;
-}
+@interface UIInputToolbar ()
+@property (nonatomic, retain) UIColor *characterCountIsValidTextColor;
+@property (nonatomic, retain) UIColor *characterCountIsValidShadowColor;
+@property (nonatomic, retain) UIColor *characterCountIsNotValidTextColor;
+@property (nonatomic, retain) UIColor *characterCountIsNotValidShadowColor;
 
 @property (nonatomic, retain) UIButton *innerBarButton;
 
@@ -49,6 +48,11 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 @synthesize backgroundImage;
 @synthesize inputButtonImage=_inputButtonImage;
 @synthesize innerBarButton;
+
+@synthesize characterCountIsValidTextColor;
+@synthesize characterCountIsValidShadowColor;
+@synthesize characterCountIsNotValidTextColor;
+@synthesize characterCountIsNotValidShadowColor;
 
 -(void)inputButtonPressed
 {
@@ -150,6 +154,12 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 
 - (void)dealloc
 {
+    [characterCountIsValidTextColor release];
+    [characterCountIsValidShadowColor release];
+    [characterCountIsNotValidTextColor release];
+    [characterCountIsNotValidShadowColor release];
+    
+    [characterCountLabel release];
     [textView release];
     [inputButton release];
     [super dealloc];
