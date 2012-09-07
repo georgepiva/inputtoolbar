@@ -54,7 +54,8 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     
     /* Remove the keyboard and clear the text */
     [self.textView clearText];
-    [self.textView resignFirstResponder];
+    [self setupWithToolbarItensEditing];
+    //[self.textView resignFirstResponder];
     
 }
 
@@ -74,7 +75,9 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     
 }
 
-- (void)setupToolbar:(NSString *)buttonLabel {
+- (void)setupToolbar {
+    
+    NSString *buttonLabel = NSLocalizedStringFromTable(@"Send", kUIInputToolbarLocalizableTableName, Nil);
   
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     self.tintColor = [UIColor lightGrayColor];
@@ -100,16 +103,16 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
         [button sizeToFit];
         
         self.innerBarButton = button;
-        self.inputButton = [[UIBarButtonItem alloc] initWithCustomView:button];        
+        self.inputButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+        self.inputButton.customView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        [self.inputButton setStyle:UIBarButtonItemStyleBordered];
+
     } else {
         self.inputButton = [[UIBarButtonItem alloc] initWithTitle:buttonLabel
                                                             style:UIBarButtonItemStyleBordered
                                                            target:self
                                                            action:@selector(inputButtonPressed)];
-    }
-    
-    self.inputButton.customView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.inputButton setStyle:UIBarButtonItemStyleBordered];
+    }    
     /* Disable button initially */
     self.inputButton.enabled = NO;
     self.inputButtonShouldDisableForNoText = YES;
@@ -145,9 +148,6 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     
     self.textViewButton = [[UIBarButtonItem alloc] initWithCustomView:self.containerView];
     
-    NSArray *items = [NSArray arrayWithObjects: self.textViewButton, self.inputButton, nil];
-    [self setItems:items animated:NO];
-    
     self.cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
                                                                       target:self
                                                                       action:@selector(cameraButtonPressed)];
@@ -157,11 +157,11 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
                                                            style:UIBarButtonItemStyleBordered
                                                           target:self
                                                           action:@selector(locationButtonPressed)];
-
+    [self setupWithToolbarItensButtons];
 }
 
 - (void)setupWithToolbarItensEditing {
-    
+    [self.textView resetConfig];
     self.textViewButton.width = kSetupTBIETextViewSizeWidth;
 
     NSArray *items = [NSArray arrayWithObjects: self.textViewButton, self.inputButton, nil];
@@ -181,7 +181,15 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 - (id)initWithFrame:(CGRect)frame andCustomInterface:(BOOL)customInterface {
     if ((self = [super initWithFrame:frame])) {
         [self setShouldUseCustomInterface:customInterface];
-        [self setupToolbar:NSLocalizedStringFromTable(@"Send", kUIInputToolbarLocalizableTableName, Nil)];
+        [self setupToolbar];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame {
+    if ((self = [super initWithFrame:frame])) {
+        [self setShouldUseCustomInterface:NO];
+        [self setupToolbar];
     }
     return self;
 }
@@ -189,7 +197,15 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 - (id)initWithCustomInterface:(BOOL)customInterface {
     if ((self = [super init])) {
         [self setShouldUseCustomInterface:customInterface];
-        [self setupToolbar:NSLocalizedStringFromTable(@"Send", kUIInputToolbarLocalizableTableName, Nil)];
+        [self setupToolbar];
+    }
+    return self;
+}
+
+- (id)init {
+    if ((self = [super init])) {
+        [self setShouldUseCustomInterface:NO];
+        [self setupToolbar];
     }
     return self;
 }
@@ -211,7 +227,7 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     
 }
 
-#pragma mark - UIExpandingTextView delegate
+#pragma mark - UIExpandingTextViewDelegate
 
 - (void)expandingTextView:(UIExpandingTextView *)expandingTextView willChangeHeight:(float)height {
     /* Adjust the height of the toolbar when the input component expands */
@@ -223,12 +239,28 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
 	
 	NSDictionary *aUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:height],CH_TEXTVIEW_HEIGHT_KEY, nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName:CHExpandingTextViewWillChangeHeightNotification object:nil userInfo:(NSDictionary *)aUserInfo];
+    
+    if ([self.delegate respondsToSelector:@selector(expandingTextView:willChangeHeight:)]) {
+        [self.delegate expandingTextView:expandingTextView willChangeHeight:height];
+    }
 }
 
 - (void)expandingTextViewDidChange:(UIExpandingTextView *)expandingTextView {
     /* Enable/Disable the button */
     if (self.inputButtonShouldDisableForNoText) {
-        if ([expandingTextView hasText]) {
+        
+        NSScanner *scanner = [NSScanner scannerWithString:expandingTextView.text];
+        NSCharacterSet *whiteSpace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        NSCharacterSet *nonWhitespace = [whiteSpace invertedSet];
+        int wordcount = 0;
+        
+        while(![scanner isAtEnd]) {
+            [scanner scanUpToCharactersFromSet:nonWhitespace intoString:Nil];
+            [scanner scanUpToCharactersFromSet:whiteSpace intoString:Nil];
+            wordcount++;
+        }
+        
+        if (wordcount >= 1) {
             self.inputButton.enabled = YES;
         } else {
             self.inputButton.enabled = NO;
@@ -255,10 +287,38 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
             self.inputButton.enabled = YES;
         }
     }
+    
+    if ([self.delegate respondsToSelector:@selector(expandingTextViewDidChange:)]) {
+        [self.delegate expandingTextViewDidChange:expandingTextView];
+    }
 }
+
+- (void)expandingTextViewDidBeginEditing:(UIExpandingTextView *)expandingTextView {
+    if ([self.delegate respondsToSelector:@selector(expandingTextViewDidBeginEditing:)]) {
+        [self.delegate expandingTextViewDidBeginEditing:expandingTextView];
+    }
+}
+
+- (void)expandingTextViewDidEndEditing:(UIExpandingTextView *)expandingTextView {
+    if ([self.delegate respondsToSelector:@selector(expandingTextViewDidEndEditing:)]) {
+        [self.delegate expandingTextViewDidEndEditing:expandingTextView];
+    }
+}
+
+- (void)expandingTextView:(UIExpandingTextView *)expandingTextView didChangeHeight:(float)height {
+    if ([self.delegate respondsToSelector:@selector(expandingTextView:didChangeHeight:)]) {
+        [self.delegate expandingTextView:expandingTextView didChangeHeight:height];
+    }
+}
+
+#pragma mark - Bridge method
 
 - (void)setPlaceholder:(NSString *)placeholder {
     self.textView.placeholder = placeholder;
+}
+
+- (NSString *)placeholder {
+    return self.textView.placeholder;
 }
 
 @end

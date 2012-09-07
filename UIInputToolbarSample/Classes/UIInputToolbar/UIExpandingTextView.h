@@ -89,5 +89,6 @@
 - (BOOL)hasText;
 - (void)scrollRangeToVisible:(NSRange)range;
 - (void)clearText;
+- (void)resetConfig;
 
 @end

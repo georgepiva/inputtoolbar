@@ -154,11 +154,16 @@
     [self sizeToFit];
 }
 
--(void)clearText
-{
+- (void)clearText {
     self.text = @"";
+    [self textViewDidChange:internalTextView];
     [self setupTextView];
     [self calculateTextViewHeight];
+}
+
+- (void)resetConfig {
+    [self setupTextView];
+    [self calculateTextViewHeight];    
 }
      
 -(void)setMaximumNumberOfLines:(int)n

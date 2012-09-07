@@ -32,7 +32,7 @@ extern NSString * const CHExpandingTextViewWillChangeHeightNotification;
 
 @class UIInputToolbar;
 
-@protocol UIInputToolbarDelegate <NSObject>
+@protocol UIInputToolbarDelegate <UIExpandingTextViewDelegate>
 @optional
 - (void)uiImputToolbar:(UIInputToolbar *)toolbar inputButtonPressed:(NSString *)inputText;
 - (void)uiImputToolbarCameraButtonPressed:(UIInputToolbar *)toolbar;
@@ -76,5 +76,6 @@ extern NSString * const CHExpandingTextViewWillChangeHeightNotification;
 - (void)setupWithToolbarItensButtons;
 
 - (void)setPlaceholder:(NSString *)placeholder;
+- (NSString *)placeholder;
 
 @end
