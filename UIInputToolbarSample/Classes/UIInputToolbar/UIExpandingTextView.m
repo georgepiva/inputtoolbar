@@ -138,6 +138,7 @@
     internalTextView.opaque          = NO;
     internalTextView.backgroundColor = [UIColor clearColor];
     internalTextView.showsHorizontalScrollIndicator = NO;
+    internalTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [internalTextView sizeToFit];
     internalTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 }

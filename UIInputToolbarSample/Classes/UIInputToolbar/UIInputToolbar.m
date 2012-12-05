@@ -165,7 +165,7 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     self.textViewButton.width = kSetupTBIETextViewSizeWidth;
 
     NSArray *items = [NSArray arrayWithObjects: self.textViewButton, self.inputButton, nil];
-    [self setItems:items animated:YES];
+    [self setItems:items animated:NO];
     
 }
 
@@ -174,7 +174,7 @@ NSString * const CHExpandingTextViewWillChangeHeightNotification = @"CHExpanding
     self.textViewButton.width = kSetupTBIBTextViewSizeWidth;
     
     NSArray *items = [NSArray arrayWithObjects: self.locationButton, self.cameraButton, self.textViewButton, nil];
-    [self setItems:items animated:YES];
+    [self setItems:items animated:NO];
     
 }
 
